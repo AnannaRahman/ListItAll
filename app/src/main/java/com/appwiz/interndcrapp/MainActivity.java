@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //findViewById(R.id.spinner1);
 
         setSupportActionBar(toolbar);
-        getInternDRC();
+      //  getInternDRC();
         // adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, );
         //spinner1.adapter = adapter;
     }
