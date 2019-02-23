@@ -30,6 +30,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation "com.squareup.okhttp3:okhttp:3.12.0"
+    //icepeak
+    /*implementation 'frankiesardo:icepick:3.2.0'
+    compileOnly 'frankiesardo:icepick-processor:3.2.0'*/
+    api 'frankiesardo:icepick:3.2.0'
+    compileOnly 'frankiesardo:icepick-processor:3.2.0'
+    annotationProcessor 'frankiesardo:icepick-processor:3.2.0'
     // translucent bar
     implementation 'com.kelin.translucentbar:library:0.8.0'
     implementation 'com.android.support:design:28.0.0-alpha1'

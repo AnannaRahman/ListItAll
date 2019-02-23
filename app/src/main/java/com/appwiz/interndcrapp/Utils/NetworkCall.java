@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface NetworkCall {
 
     //region GET
-    @GET()
+    @GET("appinion-dev/intern-dcr-data/master/data.json")
     Observable<InternDRC> GetInternDRC();
 
 

@@ -12,14 +12,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
 
     private static Retrofit retrofit;
-    static String URL = "https://raw.githubusercontent.com/appinion-dev/intern-dcr-data/master/data.json/";
+    static String URL = "https://raw.githubusercontent.com/";
 
     public static Retrofit getClient() {
         if (retrofit == null) {
+
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(3000, TimeUnit.SECONDS)
                     .readTimeout(3000, TimeUnit.SECONDS)
                     .writeTimeout(3000, TimeUnit.SECONDS)
+                    .addInterceptor(logging)
                     .build();
 
             retrofit = new Retrofit.Builder()

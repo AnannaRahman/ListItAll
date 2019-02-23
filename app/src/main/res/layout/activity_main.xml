@@ -62,12 +62,13 @@
             tools:ignore="UselessParent">
 
             <Spinner
-                android:id="@+id/spinner12"
+                android:id="@+id/spnProductGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ff0000"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown" />
+
 
         </LinearLayout>
 
@@ -81,7 +82,7 @@
             tools:ignore="UselessParent">
 
             <Spinner
-                android:id="@+id/spinner11"
+                android:id="@+id/spnLiteratureList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ff0000"
@@ -100,7 +101,7 @@
             tools:ignore="UselessParent">
 
             <Spinner
-                android:id="@+id/spinner1"
+                android:id="@+id/spnPhysicianList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ff0000"
@@ -119,7 +120,7 @@
             tools:ignore="UselessParent">
 
             <Spinner
-                android:id="@+id/spinner13"
+                android:id="@+id/spnGift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ff0000"
@@ -164,6 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:id="@+id/btnSubmit"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="10dp"
             android:text="Submit" />
