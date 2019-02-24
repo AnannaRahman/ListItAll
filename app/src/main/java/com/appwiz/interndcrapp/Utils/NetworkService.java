@@ -3,10 +3,9 @@ package com.appwiz.interndcrapp.Utils;
 
 import android.os.Handler;
 
-import com.appwiz.interndcrapp.Model.InternDRC;
+import com.appwiz.interndcrapp.Model.InternDCR;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 
 public class NetworkService {
@@ -25,7 +24,7 @@ public class NetworkService {
 
 
 
-    public Observable<InternDRC> GetInternDRC() {
+    public Observable<InternDCR> GetInternDRC() {
 
         return networkCall.GetInternDRC();
 

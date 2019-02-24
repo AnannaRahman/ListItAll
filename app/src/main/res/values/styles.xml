@@ -2,22 +2,26 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!--         adjustResize
+               Doesn't work with full screen . So, Translucent can't be used :'(               -->
 
+        <!-- <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>-->
     </style>
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@color/colorGrey</item>
         <item name="android:textColorSecondary">@color/colorGrey</item>
         <item name="actionMenuTextColor">@color/colorGrey</item>
 
+    </style>
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 </resources>

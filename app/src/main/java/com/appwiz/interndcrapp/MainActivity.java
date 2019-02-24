@@ -1,5 +1,6 @@
 package com.appwiz.interndcrapp;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appwiz.interndcrapp.Model.GiftList;
-import com.appwiz.interndcrapp.Model.InternDRC;
+import com.appwiz.interndcrapp.Model.InternDCR;
 import com.appwiz.interndcrapp.Model.LiteratureList;
 import com.appwiz.interndcrapp.Model.PhysicianSampleList;
 import com.appwiz.interndcrapp.Model.ProductGroupList;
@@ -23,7 +24,6 @@ import com.appwiz.interndcrapp.Utils.NetworkService;
 import java.util.ArrayList;
 import java.util.List;
 
-import icepick.Icepick;
 import icepick.State;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,44 +41,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner spnLiteratureList;
     private Spinner spnProductGroup;
     private Button btnSubmit;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_main);
-
-            getInternDRC();
-
 
         toolbar = findViewById(R.id.toolBar);
         btnSubmit = findViewById(R.id.btnSubmit);
-        spnGift = (Spinner) findViewById(R.id.spnGift);
-        spnProductGroup = (Spinner) findViewById(R.id.spnProductGroup);
-        spnPhysicianList = (Spinner) findViewById(R.id.spnPhysicianList);
-        spnLiteratureList = (Spinner) findViewById(R.id.spnLiteratureList);
+        spnGift = findViewById(R.id.spnGift);
+        spnProductGroup = findViewById(R.id.spnProductGroup);
+        spnPhysicianList = findViewById(R.id.spnPhysicianList);
+        spnLiteratureList =  findViewById(R.id.spnLiteratureList);
         setSupportActionBar(toolbar);
-//findViewById(R.id.spnGift);
 
+        getInternDRC();
         btnSubmit.setOnClickListener(this);
-        // adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, );
-        //spnGift.adapter = adapter;
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt("spnGiftPosition", spnGift.getSelectedItemPosition());
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("spnGift", spnGift.getSelectedItemPosition());
+        outState.putInt("spnProductGroup", spnProductGroup.getSelectedItemPosition());
+        outState.putInt("spnPhysicianList", spnPhysicianList.getSelectedItemPosition());
+        outState.putInt("spnLiteratureList", spnLiteratureList.getSelectedItemPosition());
 
-        // Icepick.saveInstanceState(this, outState);
     }
+
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        int spnGiftPosition = savedInstanceState.getInt("spnGiftPosition");
+        bundle = savedInstanceState;
     }
+
     private void getInternDRC() {
 
         NetworkService networkService = new NetworkService();
@@ -86,14 +83,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .GetInternDRC()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<InternDRC>() {
+                .subscribe(new Observer<InternDCR>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(InternDRC sample) {
+                    public void onNext(InternDCR sample) {
                         Log.v("git", "");
                         loadProductGroupSpinner(sample);
                         loadGiftSpinner(sample);
@@ -114,43 +111,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void loadGiftSpinner(InternDRC sample) {
+    private void loadGiftSpinner(InternDCR sample) {
         List<GiftList> list = sample.getGiftList();
-        List<String> gift = new ArrayList<>();
+        List<String> item = new ArrayList<>();
                       /*  for (int i=0; i<list.size();i++)
                         {
-                            gift.add(list.get(i).getGift());
+                            item.add(list.get(i).getGift());
                         }
 */
-        for (GiftList i : list
-                ) {
-            gift.add(i.getGift());
+        item.add("Choose");
+        for (GiftList i : list) {
+            item.add(i.getGift());
         }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, gift);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.support_simple_spinner_dropdown_item, item);
         spnGift.setAdapter(adapter);
         spnGift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Giftname = parent.getItemAtPosition(position).toString();
-                //  Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-               /* if (Giftname!=null)
-                {
 
-                }*/
             }
         });
+
+        if (bundle != null) {
+            //int spnGiftPosition = bundle.getInt("spnGift");
+            spnGift.setSelection(bundle.getInt("spnGift", 0));
+
+
+        }
+
     }
 
-    private void loadPhysicianSpinner(InternDRC sample) {
+    private void loadPhysicianSpinner(InternDCR sample) {
         List<PhysicianSampleList> list = sample.getPhysicianSampleList();
         List<String> item = new ArrayList<>();
-
+        item.add("Choose");
         for (PhysicianSampleList i : list
                 ) {
             item.add(i.getSample());
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //   Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
             }
 
             @Override
@@ -170,12 +172,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        if (bundle != null) {
+            spnPhysicianList.setSelection(bundle.getInt("spnPhysicianList", 0));
+        }
     }
 
-    private void loadLiteratureSpinner(InternDRC sample) {
+    private void loadLiteratureSpinner(InternDCR sample) {
         List<LiteratureList> list = sample.getLiteratureList();
         List<String> item = new ArrayList<>();
-
+        item.add("Choose");
         for (LiteratureList i : list
                 ) {
             item.add(i.getLiterature());
@@ -187,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnLiteratureList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //      Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
             }
 
             @Override
@@ -195,12 +200,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        if (bundle != null) {
+            spnLiteratureList.setSelection(bundle.getInt("spnLiteratureList", 0));
+        }
     }
 
-    private void loadProductGroupSpinner(InternDRC sample) {
+    private void loadProductGroupSpinner(InternDCR sample) {
         List<ProductGroupList> list = sample.getProductGroupList();
         List<String> item = new ArrayList<>();
-
+        item.add("Choose");
         for (ProductGroupList i : list
                 ) {
             item.add(i.getProductGroup());
@@ -212,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnProductGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //        Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
             }
 
             @Override
@@ -220,6 +228,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        if (bundle != null) {
+            spnProductGroup.setSelection(bundle.getInt("spnProductGroup", 0));
+        }
     }
 
     @Override
