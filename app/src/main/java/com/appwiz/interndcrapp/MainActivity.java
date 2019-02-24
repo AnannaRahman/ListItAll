@@ -114,11 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadGiftSpinner(InternDCR sample) {
         List<GiftList> list = sample.getGiftList();
         List<String> item = new ArrayList<>();
-                      /*  for (int i=0; i<list.size();i++)
-                        {
-                            item.add(list.get(i).getGift());
-                        }
-*/
+
         item.add("Choose");
         for (GiftList i : list) {
             item.add(i.getGift());
@@ -163,8 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnPhysicianList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //   Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
+                  ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
             }
 
             @Override
@@ -235,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId() /*to get clicked view id**/) {
+        switch (v.getId() ) {
             case R.id.btnSubmit:
                 Toast.makeText(MainActivity.this, "done", Toast.LENGTH_LONG).show();
                 break;
