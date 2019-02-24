@@ -45,8 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Icepick.restoreInstanceState(this, savedInstanceState);
+     //   Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_main);
+
+            getInternDRC();
+
+
         toolbar = findViewById(R.id.toolBar);
         btnSubmit = findViewById(R.id.btnSubmit);
         spnGift = (Spinner) findViewById(R.id.spnGift);
@@ -55,12 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnLiteratureList = (Spinner) findViewById(R.id.spnLiteratureList);
         setSupportActionBar(toolbar);
 //findViewById(R.id.spnGift);
-        if (savedInstanceState != null) {
-            spnGift.setSelection(savedInstanceState.getInt("yourSpinner", 0));
-            // do this for each of your text views
-        }
-        getInternDRC();
-
 
         btnSubmit.setOnClickListener(this);
         // adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, );
@@ -68,13 +66,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("yourSpinner", spnGift.getSelectedItemPosition());
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("spnGiftPosition", spnGift.getSelectedItemPosition());
 
         // Icepick.saveInstanceState(this, outState);
     }
-
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        int spnGiftPosition = savedInstanceState.getInt("spnGiftPosition");
+    }
     private void getInternDRC() {
 
         NetworkService networkService = new NetworkService();
