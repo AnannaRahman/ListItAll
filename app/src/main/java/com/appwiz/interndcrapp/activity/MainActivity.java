@@ -1,17 +1,15 @@
 package com.appwiz.interndcrapp.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner spnProductGroup;
     private Button btnSubmit;
     private Bundle bundle;
+    private EditText etGiftQuantity;
+    private EditText etLiteratureLQuantity;
+    private EditText etProductGroupQuantity;
+    private EditText etPhysicianLQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnGift = findViewById(R.id.spnGift);
         spnProductGroup = findViewById(R.id.spnProductGroup);
         spnPhysicianList = findViewById(R.id.spnPhysicianList);
-        spnLiteratureList =  findViewById(R.id.spnLiteratureList);
+        spnLiteratureList = findViewById(R.id.spnLiteratureList);
+        etGiftQuantity = findViewById(R.id.etGiftQuantity);
+        etLiteratureLQuantity = findViewById(R.id.etLiteratureListQuantity);
+        etProductGroupQuantity = findViewById(R.id.etProductGroupQuantity);
+        etPhysicianLQuantity = findViewById(R.id.etPhysicianLQuantity);
         setSupportActionBar(toolbar);
 
         getSampleData();
@@ -66,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putInt("spnProductGroup", spnProductGroup.getSelectedItemPosition());
         outState.putInt("spnPhysicianList", spnPhysicianList.getSelectedItemPosition());
         outState.putInt("spnLiteratureList", spnLiteratureList.getSelectedItemPosition());
+        outState.putString("etGiftQuantity", etGiftQuantity.getText().toString());
+        outState.putString("etLiteratureLQuantity", etLiteratureLQuantity.getText().toString());
+        outState.putString("etPhysicianLQuantity", etPhysicianLQuantity.getText().toString());
+        outState.putString("etProductGroupQuantity", etProductGroupQuantity.getText().toString());
 
     }
 
@@ -112,11 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadGiftSpinner(data sample) {
         List<GiftList> list = sample.getGiftList();
         List<String> item = new ArrayList<>();
-                      /*  for (int i=0; i<list.size();i++)
-                        {
-                            item.add(list.get(i).getGift());
-                        }
-*/
+
         item.add("Choose");
         for (GiftList i : list) {
             item.add(i.getGift());
@@ -128,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnGift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
+                ((TextView) view).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
             }
 
             @Override
@@ -140,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (bundle != null) {
             //int spnGiftPosition = bundle.getInt("spnGift");
             spnGift.setSelection(bundle.getInt("spnGift", 0));
+            etGiftQuantity.setText(bundle.getString("etGiftQuantity", "00"));
 
 
         }
@@ -162,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //   Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
-                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
+                ((TextView) view).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
             }
 
             @Override
@@ -172,6 +179,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         if (bundle != null) {
             spnPhysicianList.setSelection(bundle.getInt("spnPhysicianList", 0));
+            etPhysicianLQuantity.setText(bundle.getString("etPhysicianLQuantity", "00"));
+
         }
     }
 
@@ -190,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnLiteratureList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
+                ((TextView) view).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
             }
 
             @Override
@@ -200,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         if (bundle != null) {
             spnLiteratureList.setSelection(bundle.getInt("spnLiteratureList", 0));
+            etLiteratureLQuantity.setText(bundle.getString("etLiteratureLQuantity", "00"));
+
         }
     }
 
@@ -218,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnProductGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(ContextCompat.getColor( MainActivity.this,R.color.colorAccent));
+                ((TextView) view).setTextColor(ContextCompat.getColor(MainActivity.this, R.color.colorAccent));
             }
 
             @Override
@@ -228,12 +239,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         if (bundle != null) {
             spnProductGroup.setSelection(bundle.getInt("spnProductGroup", 0));
+            etProductGroupQuantity.setText(bundle.getString("etProductGroupQuantity", "00"));
+
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId() /*to get clicked view id**/) {
+        switch (v.getId()) {
             case R.id.btnSubmit:
                 Toast.makeText(MainActivity.this, "done", Toast.LENGTH_LONG).show();
                 break;

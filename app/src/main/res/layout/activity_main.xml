@@ -94,6 +94,7 @@
                         </LinearLayout>
 
                         <EditText
+                            android:id="@+id/etProductGroupQuantity"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_3sdp"
@@ -153,6 +154,8 @@
                         </LinearLayout>
 
                         <EditText
+                            android:id="@+id/etLiteratureListQuantity"
+
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_3sdp"
@@ -215,6 +218,7 @@
 
 
                         <EditText
+                            android:id="@+id/etPhysicianLQuantity"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_3sdp"
@@ -275,6 +279,7 @@
                         </LinearLayout>
 
                         <EditText
+                            android:id="@+id/etGiftQuantity"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_3sdp"
