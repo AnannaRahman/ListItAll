@@ -1,17 +1,17 @@
 
-package com.appwiz.interndcrapp.Model;
+package com.appwiz.interndcrapp.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GiftList {
+public class PhysicianSampleList {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("gift")
+    @SerializedName("sample")
     @Expose
-    private String gift;
+    private String sample;
 
     public Integer getId() {
         return id;
@@ -21,12 +21,12 @@ public class GiftList {
         this.id = id;
     }
 
-    public String getGift() {
-        return gift;
+    public String getSample() {
+        return sample;
     }
 
-    public void setGift(String gift) {
-        this.gift = gift;
+    public void setSample(String sample) {
+        this.sample = sample;
     }
 
 }

@@ -1,6 +1,6 @@
-package com.appwiz.interndcrapp.Utils;
+package com.appwiz.interndcrapp.utils;
 
-import com.appwiz.interndcrapp.Model.InternDCR;
+import com.appwiz.interndcrapp.model.data;
 
 
 import io.reactivex.Observable;
@@ -11,7 +11,7 @@ public interface NetworkCall {
 
     //region GET
     @GET("appinion-dev/intern-dcr-data/master/data.json")
-    Observable<InternDCR> GetInternDRC();
+    Observable<data> GetSampleData();
 
 
 

@@ -1,11 +1,11 @@
 
-package com.appwiz.interndcrapp.Model;
+package com.appwiz.interndcrapp.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class InternDCR {
+public class data {
 
     @SerializedName("product_group_list")
     @Expose

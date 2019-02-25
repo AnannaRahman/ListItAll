@@ -1,4 +1,4 @@
-package com.appwiz.interndcrapp.Utils;
+package com.appwiz.interndcrapp.utils;
 
 import java.util.concurrent.TimeUnit;
 

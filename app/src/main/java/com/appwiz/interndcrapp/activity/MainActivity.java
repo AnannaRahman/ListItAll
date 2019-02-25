@@ -1,4 +1,4 @@
-package com.appwiz.interndcrapp;
+package com.appwiz.interndcrapp.activity;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,28 +13,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appwiz.interndcrapp.Model.GiftList;
-import com.appwiz.interndcrapp.Model.InternDCR;
-import com.appwiz.interndcrapp.Model.LiteratureList;
-import com.appwiz.interndcrapp.Model.PhysicianSampleList;
-import com.appwiz.interndcrapp.Model.ProductGroupList;
-import com.appwiz.interndcrapp.Utils.NetworkService;
+import com.appwiz.interndcrapp.model.GiftList;
+import com.appwiz.interndcrapp.model.data;
+import com.appwiz.interndcrapp.model.LiteratureList;
+import com.appwiz.interndcrapp.model.PhysicianSampleList;
+import com.appwiz.interndcrapp.model.ProductGroupList;
+import com.appwiz.interndcrapp.R;
+import com.appwiz.interndcrapp.utils.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import icepick.State;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    @State
-    String Giftname;
+
     private Toolbar toolbar;
-    private TextView toolbartitle;
-    private Adapter adapter;
     private Spinner spnGift;
     private Spinner spnPhysicianList;
     private Spinner spnLiteratureList;
@@ -56,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spnLiteratureList =  findViewById(R.id.spnLiteratureList);
         setSupportActionBar(toolbar);
 
-        getInternDRC();
+        getSampleData();
         btnSubmit.setOnClickListener(this);
     }
 
@@ -76,21 +72,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bundle = savedInstanceState;
     }
 
-    private void getInternDRC() {
+    private void getSampleData() {
 
         NetworkService networkService = new NetworkService();
         networkService
-                .GetInternDRC()
+                .GetSample()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<InternDCR>() {
+                .subscribe(new Observer<data>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(InternDCR sample) {
+                    public void onNext(data sample) {
                         Log.v("git", "");
                         loadProductGroupSpinner(sample);
                         loadGiftSpinner(sample);
@@ -101,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        //    mSwipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
@@ -111,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-    private void loadGiftSpinner(InternDCR sample) {
+    private void loadGiftSpinner(data sample) {
         List<GiftList> list = sample.getGiftList();
         List<String> item = new ArrayList<>();
                       /*  for (int i=0; i<list.size();i++)
@@ -148,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void loadPhysicianSpinner(InternDCR sample) {
+    private void loadPhysicianSpinner(data sample) {
         List<PhysicianSampleList> list = sample.getPhysicianSampleList();
         List<String> item = new ArrayList<>();
         item.add("Choose");
@@ -177,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void loadLiteratureSpinner(InternDCR sample) {
+    private void loadLiteratureSpinner(data sample) {
         List<LiteratureList> list = sample.getLiteratureList();
         List<String> item = new ArrayList<>();
         item.add("Choose");
@@ -205,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void loadProductGroupSpinner(InternDCR sample) {
+    private void loadProductGroupSpinner(data sample) {
         List<ProductGroupList> list = sample.getProductGroupList();
         List<String> item = new ArrayList<>();
         item.add("Choose");
