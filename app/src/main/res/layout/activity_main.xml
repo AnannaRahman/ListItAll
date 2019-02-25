@@ -90,7 +90,6 @@
                                 android:backgroundTint="@color/colorGrey"
                                 android:overlapAnchor="false"
                                 android:spinnerMode="dropdown" />
-
                         </LinearLayout>
 
                         <EditText
@@ -105,7 +104,6 @@
                             android:inputType="number"
                             android:textColorHint="@color/colorDarkGrey"
                             android:textColor="@color/colorAccent" />
-
                     </LinearLayout>
 
                     <TextView
@@ -329,7 +327,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/_9sdp"
                                 android:background="@android:color/transparent"
-                                android:focusedByDefault="false"
                                 android:hint="@string/input_text"
                                 android:maxLines="2"
                                 android:textColorHint="@color/colorPrimary" />
@@ -378,7 +375,6 @@
                                 android:layout_height="@dimen/_84sdp"
                                 android:layout_margin="@dimen/_9sdp"
                                 android:background="@android:color/transparent"
-                                android:focusedByDefault="false"
                                 android:gravity="start"
                                 android:hint="@string/input_text"
                                 android:textColorHint="@color/colorPrimary" />
